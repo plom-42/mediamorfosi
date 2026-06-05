@@ -555,73 +555,7 @@
 
 <script>
 (function(){
-  // ── Chat connectat a la Raspberry Pi via Ngrok ──
-  const API = "https://napoleon-fiddly-ungleefully.ngrok-free.dev";
-  const NICK_KEY = "buhoneria_nick_v1";
-
-  const body  = document.getElementById("chat-body");
-  const input = document.getElementById("chat-text");
-  const send  = document.getElementById("chat-send");
-  const clearBtn = document.getElementById("chat-clear");
-
-  let nick = localStorage.getItem(NICK_KEY) || "convidat";
-
-  function esc(s){
-    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-  }
-  function horaAra(){
-    const d = new Date();
-    return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
-  }
-  function renderMsgs(msgs){
-    body.innerHTML = msgs.map(m => {
-      const isSys = m.nom === "SISTEMA";
-      const isMe  = m.nom === nick && !isSys;
-      const cls   = isSys ? "nick sys" : (isMe ? "nick me" : "nick");
-      return \`<span class="msg"><span class="time">\${esc(m.hora)}</span><span class="\${cls}">\${esc(m.nom)}</span><span class="text">\${esc(m.text)}</span></span>\`;
-    }).join("");
-    body.scrollTop = body.scrollHeight;
-    input.placeholder = \`Envia un missatge al [canal/mediamorfosi]. Estàs publicant com a [\${nick}]. Escriu /nick per canviar el teu nom.\`;
-  }
-  function renderError(){
-    body.innerHTML = "<span class='msg'><span class='time'>--:--</span><span class='nick sys'>SISTEMA</span><span class='text'>El node no és accessible ara mateix.</span></span>";
-  }
-  async function carrega(){
-    try{
-      const res  = await fetch(API+"/missatges");
-      const msgs = await res.json();
-      renderMsgs(msgs);
-    }catch(e){ renderError(); }
-  }
-  async function submit(){
-    const v = input.value.trim();
-    if(!v) return;
-    if(v.startsWith("/nick ")){
-      const newNick = v.slice(6).trim().slice(0,20);
-      if(newNick){ nick = newNick; localStorage.setItem(NICK_KEY, nick); }
-      input.value = "";
-      return;
-    }
-    input.value = "";
-    try{
-      await fetch(API+"/missatges",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({nom:nick, text:v, hora:horaAra()})
-      });
-      carrega();
-    }catch(e){ renderError(); }
-  }
-  send.addEventListener("click", submit);
-  input.addEventListener("keydown", e=>{ if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();submit();} });
-  clearBtn && clearBtn.addEventListener("click", ()=>{ body.innerHTML=""; });
-
-  carrega();
-  setInterval(carrega, 5000);
-
-  // ── Codi eliminat: localStorage chat ──
-  // (mantenim la resta del codi original per compatibilitat)
-  const STORAGE_KEY = "buhoneria_chat_v1_unused";
+  const STORAGE_KEY = "buhoneria_chat_v1";
   const NICK_KEY = "buhoneria_nick_v1";
 
   const seed = [
