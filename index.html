@@ -8,14 +8,30 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Cascadia+Mono:wght@400;700&display=swap" rel="stylesheet">
+<template id="__bundler_thumbnail" data-bg-color="#14160f">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#14160f" />
+    <g fill="#ccff00">
+      <rect x="510" y="300" width="40" height="40" />
+      <rect x="550" y="260" width="40" height="40" />
+      <rect x="590" y="300" width="40" height="40" />
+      <rect x="630" y="340" width="40" height="40" />
+      <rect x="650" y="300" width="40" height="40" />
+      <rect x="570" y="340" width="40" height="40" />
+      <rect x="530" y="380" width="40" height="40" />
+    </g>
+    <text x="600" y="500" fill="#ccff00" font-family="monospace" font-size="64" font-weight="bold" text-anchor="middle">MEDIAMORFOSI</text>
+    <text x="600" y="560" fill="#f2f2ec" font-family="monospace" font-size="28" text-anchor="middle">ISACC</text>
+  </svg>
+</template>
 <style>
   :root{
-    --green: #f1fb2b;
-    --green-2: #d8e526;
-    --ink: #f1fb2b;
-    --paper: #000000;
-    --soft: #000000;
-    --border: #f1fb2b;
+    --green: #ccff00;
+    --green-2: #a6d100;
+    --ink: #f2f2ec;
+    --paper: #14160f;
+    --soft: #20241a;
+    --border: #ccff00;
   }
   *{ box-sizing: border-box; }
   html, body{ background: var(--paper); color: var(--ink); }
@@ -26,8 +42,12 @@
     padding: 28px 24px 80px;
     font-size: 15px;
     line-height: 1.5;
+    background-color: var(--paper);
+    background-image: radial-gradient(rgba(204,255,0,0.10) 1px, transparent 1.5px);
+    background-size: 6px 6px;
+    background-attachment: fixed;
   }
-  a{ color: var(--green); text-decoration: underline; }
+  a{ color: #ccff00; text-decoration: underline; transition: background .12s ease, box-shadow .12s ease, transform .12s ease; }
   a:hover{ background: var(--soft); }
 
   /* Top-right corporate ID */
@@ -62,7 +82,7 @@
   .logo img.logo-mark{
     width: 140px;
     height: 140px;
-    background-color: #f1fb2b;
+    background-color: #ccff00;
     -webkit-mask: url("logo.png") center / contain no-repeat;
             mask: url("logo.png") center / contain no-repeat;
     image-rendering: pixelated;
@@ -204,7 +224,7 @@
     width: 100%;
     aspect-ratio: 16 / 9;
     background:
-      repeating-linear-gradient(45deg, #f7faf6 0 12px, #000000 12px 24px);
+      repeating-linear-gradient(45deg, #1b1e15 0 12px, #14160f 12px 24px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -267,7 +287,7 @@
     background: var(--paper);
     font-family: "Courier New", monospace;
     font-style: normal;
-    color: var(--green);
+    color: var(--ink);
     font-size: 13px;
   }
   .chat-head{
@@ -289,10 +309,10 @@
   .chat-body::-webkit-scrollbar{ width: 8px; }
   .chat-body::-webkit-scrollbar-thumb{ background: var(--green); }
   .msg{ display: block; margin: 2px 0; }
-  .msg .time{ color: #c6cf2c; margin-right: 8px; }
+  .msg .time{ color: #7d8a5a; margin-right: 8px; }
   .msg .nick{ font-weight: bold; margin-right: 6px; }
-  .msg .nick.sys{ color: #c6cf2c; font-weight: normal; }
-  .msg .nick.me{ color: #bcc628; }
+  .msg .nick.sys{ color: #7d8a5a; font-weight: normal; }
+  .msg .nick.me{ color: #ccff00; }
   .msg .text{ }
   .reactions{
     display: inline-flex;
@@ -334,14 +354,14 @@
     border: 0;
     outline: 0;
     background: transparent;
-    color: var(--green);
+    color: var(--ink);
     font-family: "Courier New", monospace;
     font-size: 13px;
     padding: 8px 10px;
     resize: none;
     line-height: 1.45;
   }
-  .chat-input textarea::placeholder{ color: #b9c32a; }
+  .chat-input textarea::placeholder{ color: #6f7a52; }
   .chat-input .enter{
     display: flex;
     align-items: center;
@@ -384,6 +404,20 @@
     font-size: 13px;
     text-align: center;
   }
+
+  /* --- hover lift on clickable elements --- */
+  .pill, .rect, .download a, .chat-actions a, .lit .pill, .introducing .pill, .video-wrap{
+    transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
+  }
+  .pill:hover, .rect:hover, .download a:hover, .chat-actions a:hover{
+    transform: translateY(-2px);
+    box-shadow: 3px 5px 0 rgba(204,255,0,0.45), 0 3px 8px rgba(60,70,20,0.16);
+  }
+  .video-wrap:hover{
+    transform: translateY(-2px);
+    box-shadow: 4px 6px 0 rgba(204,255,0,0.40), 0 4px 10px rgba(60,70,20,0.16);
+  }
+  a:hover{ box-shadow: 0 2px 0 rgba(204,255,0,0.65); }
 </style>
 </head>
 <body>
@@ -413,19 +447,18 @@
         <a class="rect" href="#manifest">Manifest</a>
         <a class="pill" href="#que-hi-ha">Què hi trobaràs</a>
         <a class="rect" href="#nota">Nota final</a>
-        <a class="pill" href="#fanzine">Fanzine</a>
+        <a class="pill" href="FANZINEdelISACC.pdf" target="_blank">Fanzine</a>
       </div>
       <div class="col">
-        <h3>CONSTRUEIX<br/>EL TEU NODE</h3>
+        <h3>CONSTRUEIX<br/>EL TEU ISACC</h3>
         <a class="pill" href="#descarrega">Descarregar paquet</a>
-        <a class="rect" href="#ngrok">Túnel Ngrok</a>
-        <a class="pill" href="#raspberry">Raspberry Pi 4/5</a>
+        <a class="rect" href="https://ngrok.com/" target="_blank">Túnel Ngrok</a>
+        <a class="pill" href="https://www.raspberrypi.com/" target="_blank">Raspberry Pi 4/5</a>
       </div>
       <div class="col">
         <h3>XARXA<br/>OBERTA</h3>
         <a class="rect" href="#xat">Xat públic</a>
         <a class="pill" href="#documentacio">Documentació</a>
-        <a class="rect" href="#contacte">Contacte</a>
       </div>
     </div>
 
@@ -435,7 +468,7 @@
 
       <h2 style="text-align:center; border:0; font-size:26px; margin-top:10px;">MEDIAMORFOSI</h2>
 
-      <p>Quan passes el suficient temps a internet és quan comences a veure a través dels sistemes que el condicionen. Comences a veure lo intrusiu que pot arribar a ser en les maneres de desenvolupar-se. Entre competència per atenció, sistemes de monetització, algoritmes impulsats per polítiques i, ara ja finalment, intel·ligència artificial. Pareix que l'espai on els usuaris compartim el que ens agrada queda completament controlat pels propietaris de les xarxes que ocupam. És aquí on un es planteja la necessitat i la cerca de maneres de donar-li la volta, la manera de decidir nosaltres mateixos com arribar a la gent i com expressar-nos de la manera més pròpia possible, sense sacrificar el món digital completament. El que es vol crear aquí és un node físic basat en una Raspberry Pi que, a través d'una pastilla NFC instal·lada en un espai públic, que permet a qualsevol persona accedir al contingut que vulguis compartir directament al seu mòbil. Sense registres. Sense cookies. Sense intermediaris.</p>
+      <p>Quan passes el suficient temps a internet és quan comences a veure a través dels sistemes que el condicionen. Comences a veure lo intrusiu que pot arribar a ser en les maneres de desenvolupar-se. Entre competència per atenció, sistemes de monetització, algoritmes impulsats per polítiques i, ara ja finalment, intel·ligència artificial. Pareix que l'espai on els usuaris compartim el que ens agrada queda completament controlat pels propietaris de les xarxes que ocupam. És aquí on un es planteja la necessitat i la cerca de maneres de donar-li la volta, la manera de decidir nosaltres mateixos com arribar a la gent i com expressar-nos de la manera més pròpia possible, sense sacrificar el món digital completament. El que es vol crear aquí és l'ISACC, un sistema físic basat en una Raspberry Pi que, a través d'una pastilla NFC instal·lada en un espai públic, que permet a qualsevol persona accedir al contingut que vulguis compartir directament al seu mòbil. Sense registres. Sense cookies. Sense intermediaris.</p>
 
       <p>Tu decideixes què hi ha, on és i qui hi pot arribar. Volem moure el contingut digital a un àmbit més personal i físic.</p>
 
@@ -443,12 +476,12 @@
       <p>Aquesta pàgina n'és el punt de contacte del projecte. Mira't vídeo de presentació, estiga's atent a les actualitzacions i, sobretot, deixar el teu comentari al canal. Si tens dubtes tècnics, vols reportar un error o simplement vols dir hola, aquest és el lloc!</p>
       <p>El sistema no és definitiu. Qualsevol canvi important (actualitzacions, problemes amb Ngrok, noves versions del paquet) es publicarà aquí primer.</p>
 
-      <h2 id="descarrega">VOLS FER EL TEU PROPI NODE?</h2>
-      <p>Tot el necessari per desplegar el teu propi dispositiu es pot descarregar des d'aquí. El paquet conté un script d'instal·lació automatitzada que configura tots els serveis necessaris a la teva Raspberry Pi: el servidor de contingut, el túnel Ngrok i l'automatització d'arrencada. No cal saber programar per fer-lo funcionar.</p>
+      <h2 id="descarrega">VOLS FER EL TEU PROPI ISACC?</h2>
+      <p>Tot el necessari per desplegar el teu propi ISACC es pot descarregar des d'aquí. El paquet conté un script d'instal·lació automatitzada que configura tots els serveis necessaris a la teva Raspberry Pi: el servidor de contingut, el túnel Ngrok i l'automatització d'arrencada. No cal saber programar per fer-lo funcionar.</p>
       <p>El fanzine físic explica pas a pas en el procés, però si no el tens a mà, també trobaràs la guia completa aquí.</p>
 
       <div class="download">
-        <a href="/instalador.sh" download id="download-link">[ DESCARREGAR EL PAQUET ]</a>
+        <a href="instalador.sh" download id="download-link">[ DESCARREGAR EL PAQUET ]</a>
         <span class="note">Compatible amb Raspberry Pi 4 i 5. Versió mínima recomanada: 2 GB de RAM.</span>
       </div>
 
@@ -457,15 +490,15 @@
     </article>
 
     <!-- Document index (literature-style ovals) -->
-    <div class="sec-h">
+    <div class="sec-h" id="documentacio">
       <div><span class="label">DOCUMENTACIÓ DEL PROJECTE</span></div>
       <div class="rule"></div>
     </div>
     <div class="lit">
-      <a class="pill" href="#doc1">Dossier del treball (2026)</a>
-      <a class="pill" href="#doc3">Referent - Deadrops (2011)</a>
-      <a class="pill" href="#doc4">Referent - Pibliotheque (2025)</a>
-      <a class="pill" href="#doc5">Fanzine #01 — versió digital (2026)</a>
+      <a class="pill" href="Mediamorfosi_i_Autogestio_de_Continguts_Digitals.pdf" target="_blank">Dossier del treball (2026)</a>
+      <a class="pill" href="https://deaddrops.com/" target="_blank">Referent - Dead Drops</a>
+      <a class="pill" href="https://those.tools/" target="_blank">Referent - Pibliotheque</a>
+      <a class="pill" href="FANZINEdelISACC.pdf" target="_blank">Fanzine #01 — versió digital (2026)</a>
     </div>
 
     <!-- Video -->
@@ -480,12 +513,12 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
       -->
-      <div class="video-inner" id="video-slot">
-        <div class="placeholder">
-          <div class="play-btn"></div>
-          [ youtube embed · pendent ]<br/>
-          afegir url al bloc <code>#video-slot</code>
-        </div>
+      <div class="video-inner" id="video-slot" style="display:block; padding:0; border:none;">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/LUxg-hxboNs"
+                title="Mediamorfosi i Autogestió de Continguts Digitals"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
       </div>
     </div>
 
@@ -495,41 +528,207 @@
       <div class="rule"></div>
     </div>
 
-    
-
-
-    <!-- Canal de comentaris via Giscus -->
-    <div class="sec-h" id="xat">
-      <div><span class="label">CANAL OBERT · COMENTARIS</span></div>
-      <div class="rule"></div>
+    <div class="chat" id="chat">
+      <div class="chat-head">
+        <span class="back" id="chat-clear" title="Buidar xat local">‹</span>
+        <span>MEDIAMORFOSI — CANAL OBERT</span>
+        <span></span>
+      </div>
+      <div class="chat-body" id="chat-body">
+        <!-- seeded messages, rendered by JS -->
+      </div>
+      <div class="chat-input">
+        <div class="clip" title="Adjunta (no actiu)">📎</div>
+        <textarea id="chat-text" rows="3"
+          placeholder="Envia un missatge al [canal/mediamorfosi]. Estàs publicant com a [convidat]. Escriu /nick per canviar el teu nom."></textarea>
+        <div class="enter" id="chat-send" title="Enviar">↵</div>
+      </div>
+      <div class="chat-foot">[ quants més millor] [ canal de mediamorfosi ] [ propulsat de la forma més efímera ]</div>
     </div>
-
-    <div style="max-width:760px; margin: 30px auto 0;">
-      <script src="https://giscus.app/client.js"
-              data-repo="plom-42/mediamorfosi"
-              data-repo-id="R_kgDOSjKz5w"
-              data-category="General"
-              data-category-id="DIC_kwDOSjKz584C9ejs"
-              data-mapping="url"
-              data-strict="0"
-              data-reactions-enabled="1"
-              data-emit-metadata="0"
-              data-input-position="bottom"
-              data-theme="dark"
-              data-lang="ca"
-              crossorigin="anonymous"
-              async>
-      </script>
-    </div>
-
-    <div class="chat-actions" style="max-width:760px; margin: 0 auto;">
-      <a href="#top">&#x2191; TORNAR A DALT DE LA P&#xC0;GINA</a>
+    <div class="chat-actions">
+      <a href="#xat-fullscreen">CANAL EN PANTALLA COMPLETA →</a>
+      <a href="#top">↑ TORNAR A DALT DE LA PÀGINA</a>
     </div>
 
     <footer>INTRODUCCIÓ A SISTEMES ALTERNATIUS PER COMPARTIR CONTINGUT EN DIGITAL · TFG FINAL PER BARTOMEU PLOMER A BAU · 2026</footer>
   </main>
 
+<script>
+(function(){
+  // ── Chat connectat a la Raspberry Pi via Ngrok ──
+  const API = "https://napoleon-fiddly-ungleefully.ngrok-free.dev";
+  const NICK_KEY = "buhoneria_nick_v1";
 
+  const body  = document.getElementById("chat-body");
+  const input = document.getElementById("chat-text");
+  const send  = document.getElementById("chat-send");
+  const clearBtn = document.getElementById("chat-clear");
+
+  let nick = localStorage.getItem(NICK_KEY) || "convidat";
+
+  function esc(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+  function horaAra(){
+    const d = new Date();
+    return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+  }
+  function renderMsgs(msgs){
+    body.innerHTML = msgs.map(m => {
+      const isSys = m.nom === "SISTEMA";
+      const isMe  = m.nom === nick && !isSys;
+      const cls   = isSys ? "nick sys" : (isMe ? "nick me" : "nick");
+      return \`<span class="msg"><span class="time">\${esc(m.hora)}</span><span class="\${cls}">\${esc(m.nom)}</span><span class="text">\${esc(m.text)}</span></span>\`;
+    }).join("");
+    body.scrollTop = body.scrollHeight;
+    input.placeholder = \`Envia un missatge al [canal/mediamorfosi]. Estàs publicant com a [\${nick}]. Escriu /nick per canviar el teu nom.\`;
+  }
+  function renderError(){
+    body.innerHTML = "<span class='msg'><span class='time'>--:--</span><span class='nick sys'>SISTEMA</span><span class='text'>El node no és accessible ara mateix.</span></span>";
+  }
+  async function carrega(){
+    try{
+      const res  = await fetch(API+"/missatges");
+      const msgs = await res.json();
+      renderMsgs(msgs);
+    }catch(e){ renderError(); }
+  }
+  async function submit(){
+    const v = input.value.trim();
+    if(!v) return;
+    if(v.startsWith("/nick ")){
+      const newNick = v.slice(6).trim().slice(0,20);
+      if(newNick){ nick = newNick; localStorage.setItem(NICK_KEY, nick); }
+      input.value = "";
+      return;
+    }
+    input.value = "";
+    try{
+      await fetch(API+"/missatges",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({nom:nick, text:v, hora:horaAra()})
+      });
+      carrega();
+    }catch(e){ renderError(); }
+  }
+  send.addEventListener("click", submit);
+  input.addEventListener("keydown", e=>{ if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();submit();} });
+  clearBtn && clearBtn.addEventListener("click", ()=>{ body.innerHTML=""; });
+
+  carrega();
+  setInterval(carrega, 5000);
+
+  // ── Codi eliminat: localStorage chat ──
+  // (mantenim la resta del codi original per compatibilitat)
+  const STORAGE_KEY = "buhoneria_chat_v1_unused";
+  const NICK_KEY = "buhoneria_nick_v1";
+
+  const seed = [
+    { t: "09:14", nick: "SISTEMA", cls: "sys",
+      text: "Benvingut a [canal/mediamorfosi]. Escriu /nick &lt;nom&gt; per canviar el teu àlies. Comparteix sense intermediaris." },
+    { t: "09:22", nick: "marina",  text: "Trobat el primer ISACC al carrer de la Mar. Bé!" },
+    { t: "09:23", nick: "marina",  text: "qualcú més l'ha trobat?" },
+    { t: "09:41", nick: "joana",   text: "jo l'he llegit amb un Android sense problema" },
+    { t: "10:02", nick: "tofol",   text: "ngrok me bota error 502 a estones, idees?" },
+    { t: "10:14", nick: "lluc",    text: "tofol prova reiniciar el túnel amb el script /restart" },
+    { t: "10:30", nick: "convidat", text: "el fanzine es pot recollir físicament a algun lloc?" },
+    { t: "11:05", nick: "admin", quote: "el fanzine es pot recollir físicament a algun lloc?" },
+    { t: "11:05", nick: "admin",   text: "sí, demanau-lo a la propera trobada · dijous a les 19h" },
+  ];
+
+  let messages = [];
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    messages = raw ? JSON.parse(raw) : seed.slice();
+  }catch(e){ messages = seed.slice(); }
+
+  let nick = localStorage.getItem(NICK_KEY) || "convidat";
+
+  const body = document.getElementById("chat-body");
+  const input = document.getElementById("chat-text");
+  const send = document.getElementById("chat-send");
+  const clearBtn = document.getElementById("chat-clear");
+
+  function esc(s){
+    return String(s)
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;");
+  }
+  function renderMsg(m){
+    const isSys = m.cls === "sys";
+    const isMe = m.nick === nick && !isSys;
+    const nickCls = isSys ? "nick sys" : (isMe ? "nick me" : "nick");
+    let html = "";
+    if (m.quote){
+      html += `<div class="quote">↳ ${esc(m.quote)}</div>`;
+    }
+    html += `<span class="msg"><span class="time">${esc(m.t)}</span><span class="${nickCls}">${esc(m.nick)}</span><span class="text">${esc(m.text || "")}</span></span>`;
+    if (m.reactions && m.reactions.length){
+      html += `<div class="reactions">` + m.reactions.map(r=>`<span>${esc(r.e)} ${r.n}</span>`).join("") + `</div>`;
+    }
+    return html;
+  }
+  function render(){
+    body.innerHTML = messages.map(renderMsg).join("");
+    body.scrollTop = body.scrollHeight;
+    // refresh placeholder with current nick
+    input.placeholder = `Envia un missatge al [canal/mediamorfosi]. Estàs publicant com a [${nick}]. Escriu /nick per canviar el teu nom.`;
+  }
+  function save(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(messages.slice(-200))); }catch(e){}
+  }
+  function nowTime(){
+    const d = new Date();
+    return String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
+  }
+  function pushSys(text){
+    messages.push({ t: nowTime(), nick: "SISTEMA", cls: "sys", text: text });
+  }
+  function submit(){
+    const v = input.value.trim();
+    if (!v) return;
+    if (v.startsWith("/nick ")){
+      const newNick = v.slice(6).trim().slice(0,20);
+      if (newNick){
+        nick = newNick;
+        localStorage.setItem(NICK_KEY, nick);
+        pushSys(`àlies canviat a [${nick}]`);
+      }
+    } else if (v === "/help"){
+      pushSys("ordres disponibles: /nick &lt;nom&gt;, /clear, /help");
+    } else if (v === "/clear"){
+      messages = [];
+      pushSys("xat local buidat.");
+    } else {
+      messages.push({ t: nowTime(), nick: nick, text: v });
+    }
+    input.value = "";
+    save();
+    render();
+  }
+  send.addEventListener("click", submit);
+  input.addEventListener("keydown", e=>{
+    if (e.key === "Enter" && !e.shiftKey){
+      e.preventDefault();
+      submit();
+    }
+  });
+  clearBtn.addEventListener("click", ()=>{
+    if (confirm("Buidar el xat local?")){
+      messages = [];
+      pushSys("xat local buidat.");
+      save(); render();
+    }
+  });
+
+  render();
+
+  // Year in footer
+  // (not strictly needed but useful)
+})();
+</script>
 
 <!-- Tweaks panel -->
 <style>
@@ -538,16 +737,16 @@
     right: 16px;
     bottom: 16px;
     width: 260px;
-    background: #000000;
-    border: 1px solid #f1fb2b;
-    color: #f1fb2b;
+    background: #14160f;
+    border: 1px solid #ccff00;
+    color: #ccff00;
     font-family: "Courier New", monospace;
     font-style: normal;
     font-size: 12px;
     padding: 0;
     z-index: 9999;
     display: none;
-    box-shadow: 0 2px 0 #f1fb2b;
+    box-shadow: 0 2px 0 #ccff00;
   }
   #tweaks-panel.open{ display: block; }
   #tweaks-panel .tw-head{
@@ -555,13 +754,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 6px 10px;
-    border-bottom: 1px solid #f1fb2b;
+    border-bottom: 1px solid #ccff00;
     letter-spacing: 1px;
   }
   #tweaks-panel .tw-head button{
     background: transparent;
     border: 0;
-    color: #f1fb2b;
+    color: #ccff00;
     font-family: inherit;
     font-size: 14px;
     cursor: pointer;
@@ -580,7 +779,7 @@
   #tweaks-panel .sw{
     width: 36px;
     height: 36px;
-    border: 1px solid #f1fb2b;
+    border: 1px solid #ccff00;
     cursor: pointer;
     position: relative;
   }
@@ -591,7 +790,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #f1fb2b;
+    color: #ccff00;
     font-family: inherit;
     font-size: 14px;
     text-shadow: 0 0 2px #fff, 0 0 2px #fff;
@@ -605,10 +804,10 @@
   <div class="tw-body">
     <label>Color de fons</label>
     <div class="swatches" id="tw-bg-swatches">
+      <div class="sw" data-color="#14160f" style="background:#14160f"></div>
       <div class="sw" data-color="#000000" style="background:#000000"></div>
-      <div class="sw" data-color="#f3f0e6" style="background:#f3f0e6"></div>
-      <div class="sw" data-color="#fbffd4" style="background:#fbffd4"></div>
-      <div class="sw" data-color="#f1fb2b" style="background:#f1fb2b"></div>
+      <div class="sw" data-color="#1f2417" style="background:#1f2417"></div>
+      <div class="sw" data-color="#2a2f1e" style="background:#2a2f1e"></div>
     </div>
   </div>
 </div>
@@ -616,7 +815,7 @@
 <script>
 (function(){
   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-    "bgColor": "#000000"
+    "bgColor": "#14160f"
   }/*EDITMODE-END*/;
 
   const state = { ...TWEAK_DEFAULTS };
@@ -625,8 +824,8 @@
   const closeBtn = document.getElementById("tw-close");
 
   function applyBg(color){
-    document.body.style.background = color;
-    document.documentElement.style.background = color;
+    document.body.style.backgroundColor = color;
+    document.documentElement.style.backgroundColor = color;
     // also update CSS var fallbacks
     document.documentElement.style.setProperty("--paper", color);
     [...swatchesEl.querySelectorAll(".sw")].forEach(sw=>{
