@@ -528,141 +528,31 @@
       <div class="rule"></div>
     </div>
 
-    <div class="chat" id="chat">
-      <div class="chat-head">
-        <span class="back" id="chat-clear" title="Buidar xat local">‹</span>
-        <span>MEDIAMORFOSI — CANAL OBERT</span>
-        <span></span>
-      </div>
-      <div class="chat-body" id="chat-body">
-        <!-- seeded messages, rendered by JS -->
-      </div>
-      <div class="chat-input">
-        <div class="clip" title="Adjunta (no actiu)">📎</div>
-        <textarea id="chat-text" rows="3"
-          placeholder="Envia un missatge al [canal/mediamorfosi]. Estàs publicant com a [convidat]. Escriu /nick per canviar el teu nom."></textarea>
-        <div class="enter" id="chat-send" title="Enviar">↵</div>
-      </div>
-      <div class="chat-foot">[ quants més millor] [ canal de mediamorfosi ] [ propulsat de la forma més efímera ]</div>
+    <div style="max-width:760px; margin: 30px auto 0;">
+      <script src="https://giscus.app/client.js"
+              data-repo="plom-42/mediamorfosi"
+              data-repo-id="R_kgDOSjKz5w"
+              data-category="General"
+              data-category-id="DIC_kwDOSjKz584C9ejs"
+              data-mapping="url"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="dark"
+              data-lang="ca"
+              crossorigin="anonymous"
+              async>
+      </script>
     </div>
     <div class="chat-actions">
-      <a href="#xat-fullscreen">CANAL EN PANTALLA COMPLETA →</a>
       <a href="#top">↑ TORNAR A DALT DE LA PÀGINA</a>
     </div>
 
     <footer>INTRODUCCIÓ A SISTEMES ALTERNATIUS PER COMPARTIR CONTINGUT EN DIGITAL · TFG FINAL PER BARTOMEU PLOMER A BAU · 2026</footer>
   </main>
 
-<script>
-(function(){
-  const STORAGE_KEY = "buhoneria_chat_v1";
-  const NICK_KEY = "buhoneria_nick_v1";
 
-  const seed = [
-    { t: "09:14", nick: "SISTEMA", cls: "sys",
-      text: "Benvingut a [canal/mediamorfosi]. Escriu /nick &lt;nom&gt; per canviar el teu àlies. Comparteix sense intermediaris." },
-    { t: "09:22", nick: "marina",  text: "Trobat el primer ISACC al carrer de la Mar. Bé!" },
-    { t: "09:23", nick: "marina",  text: "qualcú més l'ha trobat?" },
-    { t: "09:41", nick: "joana",   text: "jo l'he llegit amb un Android sense problema" },
-    { t: "10:02", nick: "tofol",   text: "ngrok me bota error 502 a estones, idees?" },
-    { t: "10:14", nick: "lluc",    text: "tofol prova reiniciar el túnel amb el script /restart" },
-    { t: "10:30", nick: "convidat", text: "el fanzine es pot recollir físicament a algun lloc?" },
-    { t: "11:05", nick: "admin", quote: "el fanzine es pot recollir físicament a algun lloc?" },
-    { t: "11:05", nick: "admin",   text: "sí, demanau-lo a la propera trobada · dijous a les 19h" },
-  ];
-
-  let messages = [];
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    messages = raw ? JSON.parse(raw) : seed.slice();
-  }catch(e){ messages = seed.slice(); }
-
-  let nick = localStorage.getItem(NICK_KEY) || "convidat";
-
-  const body = document.getElementById("chat-body");
-  const input = document.getElementById("chat-text");
-  const send = document.getElementById("chat-send");
-  const clearBtn = document.getElementById("chat-clear");
-
-  function esc(s){
-    return String(s)
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;");
-  }
-  function renderMsg(m){
-    const isSys = m.cls === "sys";
-    const isMe = m.nick === nick && !isSys;
-    const nickCls = isSys ? "nick sys" : (isMe ? "nick me" : "nick");
-    let html = "";
-    if (m.quote){
-      html += `<div class="quote">↳ ${esc(m.quote)}</div>`;
-    }
-    html += `<span class="msg"><span class="time">${esc(m.t)}</span><span class="${nickCls}">${esc(m.nick)}</span><span class="text">${esc(m.text || "")}</span></span>`;
-    if (m.reactions && m.reactions.length){
-      html += `<div class="reactions">` + m.reactions.map(r=>`<span>${esc(r.e)} ${r.n}</span>`).join("") + `</div>`;
-    }
-    return html;
-  }
-  function render(){
-    body.innerHTML = messages.map(renderMsg).join("");
-    body.scrollTop = body.scrollHeight;
-    // refresh placeholder with current nick
-    input.placeholder = `Envia un missatge al [canal/mediamorfosi]. Estàs publicant com a [${nick}]. Escriu /nick per canviar el teu nom.`;
-  }
-  function save(){
-    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(messages.slice(-200))); }catch(e){}
-  }
-  function nowTime(){
-    const d = new Date();
-    return String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
-  }
-  function pushSys(text){
-    messages.push({ t: nowTime(), nick: "SISTEMA", cls: "sys", text: text });
-  }
-  function submit(){
-    const v = input.value.trim();
-    if (!v) return;
-    if (v.startsWith("/nick ")){
-      const newNick = v.slice(6).trim().slice(0,20);
-      if (newNick){
-        nick = newNick;
-        localStorage.setItem(NICK_KEY, nick);
-        pushSys(`àlies canviat a [${nick}]`);
-      }
-    } else if (v === "/help"){
-      pushSys("ordres disponibles: /nick &lt;nom&gt;, /clear, /help");
-    } else if (v === "/clear"){
-      messages = [];
-      pushSys("xat local buidat.");
-    } else {
-      messages.push({ t: nowTime(), nick: nick, text: v });
-    }
-    input.value = "";
-    save();
-    render();
-  }
-  send.addEventListener("click", submit);
-  input.addEventListener("keydown", e=>{
-    if (e.key === "Enter" && !e.shiftKey){
-      e.preventDefault();
-      submit();
-    }
-  });
-  clearBtn.addEventListener("click", ()=>{
-    if (confirm("Buidar el xat local?")){
-      messages = [];
-      pushSys("xat local buidat.");
-      save(); render();
-    }
-  });
-
-  render();
-
-  // Year in footer
-  // (not strictly needed but useful)
-})();
-</script>
 
 <!-- Tweaks panel -->
 <style>
